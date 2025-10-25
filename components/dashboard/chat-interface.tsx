@@ -51,7 +51,8 @@ export function ChatInterface({ agent }: ChatInterfaceProps) {
     setIsLoading(true)
 
     try {
-      const response = await fetch("http://localhost:8000/chat", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+      const response = await fetch(`${apiUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message, agent }),
@@ -92,7 +93,7 @@ export function ChatInterface({ agent }: ChatInterfaceProps) {
       {/* Messages Container */}
       <div
         className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-400 scrollbar-track-gray-100 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-900"
-        style={{ maxHeight: "calc(100vh - 120px)" }} // Adjust height as needed
+        style={{ maxHeight: "calc(100vh - 120px)" }}
       >
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center">

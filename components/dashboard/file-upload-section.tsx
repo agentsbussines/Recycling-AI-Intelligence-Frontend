@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -46,10 +45,11 @@ export function FileUploadSection({ agent, onUploadSuccess }: FileUploadSectionP
     setStatus("idle")
 
     try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+      const endpoint = `${apiUrl}/${agent}/upload`
       const formData = new FormData()
       formData.append("file", file)
 
-      const endpoint = `http://localhost:8000/${agent}/upload`
       const response = await fetch(endpoint, {
         method: "POST",
         body: formData,

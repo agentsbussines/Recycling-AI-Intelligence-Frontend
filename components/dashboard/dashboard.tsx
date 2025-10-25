@@ -29,7 +29,8 @@ export default function Dashboard({ onLogout }: DashboardProps) {
   const fetchStats = async () => {
     setIsLoadingStats(true)
     try {
-      const response = await fetch("http://localhost:8000/stats", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+      const response = await fetch(`${apiUrl}/stats`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       })
